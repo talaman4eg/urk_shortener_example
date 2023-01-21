@@ -1,0 +1,14 @@
+#FROM php
+FROM bitnami/laravel
+WORKDIR /app/src/
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN apt update
+RUN apt install -y git
+COPY ./src /app/src
+COPY ./src/composer.json ./
+COPY ./src/.env ./
+RUN composer install
+RUN php artisan key:generate
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
