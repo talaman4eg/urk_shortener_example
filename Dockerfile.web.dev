@@ -4,7 +4,8 @@ WORKDIR /app/src/
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN apt update
-RUN apt install -y git
+RUN apt install -y git build-essential vim mc mlocate
+RUN pecl install xdebug
 COPY ./src /app/src
 COPY ./src/composer.json ./
 COPY ./src/.env ./

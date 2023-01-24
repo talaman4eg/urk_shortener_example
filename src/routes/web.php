@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (Redirect $redirect) {
+    $r = Redirect::where('id', 1)->first();
+    return view('index', ['name' => 'Mark', 'r' => r->short_code]);
 });
+
+Route::get('/{short_code}', function (Redirect $redirect, $short_code) {
+    $r = Redirect::where('short_code', $short_code)->first();
+    Route.redirect($r->url);
+    
+})->whereAlphaNumeric('short_code');

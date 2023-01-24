@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         \App\Models\Redirect::factory()->create([
+             'short_code' => '1q2w3',
+             'url' => 'http://google.com/?q=url+shortener+test',
+         ]);
     }
 }
