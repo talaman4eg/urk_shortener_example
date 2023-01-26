@@ -1,11 +1,13 @@
 #FROM php
 FROM bitnami/laravel
+ENV DBGP_IDEKEY=docker
 WORKDIR /app/src/
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN apt update
-RUN apt install -y git build-essential vim mc mlocate
+RUN apt install -y git build-essential autoconf vim mc mlocate
 RUN pecl install xdebug
+COPY .docker/xdebug.ini /opt/bitnami/php/etc/conf.d/50_xdebug.ini 
 COPY ./src /app/src
 COPY ./src/composer.json ./
 COPY ./src/.env ./

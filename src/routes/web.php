@@ -16,7 +16,7 @@ use App\Models\Redirect;
 
 Route::get('/', function (Redirect $redirect) {
     $r = Redirect::where('id', 1)->first();
-    return view('index', ['name' => 'Mark', 'r' => r->short_code]);
+    return view('index', ['name' => 'Mark', 'r' => $r->short_code]);
 });
 
 Route::get('/{short_code}', function (Redirect $redirect, $short_code) {
